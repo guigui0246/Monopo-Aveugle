@@ -1,0 +1,269 @@
+@import 'tailwindcss';
+:root {
+  font-family: Inter, system-ui, sans-serif;
+  font-synthesis: none;
+  color-scheme: light;
+  --bg: #f5f5f0;
+  --surface: #fff;
+  --board: #f2f4f7;
+  --ink: #172230;
+  --muted: #5c6977;
+  --line: #d5dce3;
+  --connection: #687588;
+  --accent: #3358bb;
+  --accent-soft: #e9efff;
+  --property-empty: #fff;
+  --danger: #ffe4e9;
+  color: var(--ink);
+  background: var(--bg);
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #111521;
+  --surface: #1b2233;
+  --board: #151c2b;
+  --ink: #edf1f7;
+  --muted: #a6b2c8;
+  --line: #3b4960;
+  --connection: #9aabc2;
+  --accent: #a3bcff;
+  --accent-soft: #263451;
+  --property-empty: #000;
+  --danger: #612d3b;
+}
+body {
+  margin: 0;
+}
+button,
+input,
+select {
+  font: inherit;
+}
+button,
+a.button {
+  cursor: pointer;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface);
+  color: var(--ink);
+  padding: 0.65rem 1rem;
+  text-decoration: none;
+}
+button:hover,
+a.button:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+input,
+select {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 0.6rem;
+  max-width: 100%;
+  min-width: 0;
+}
+input[type='color'] {
+  width: 70px;
+  height: 42px;
+  padding: 0.3rem;
+}
+input[type='radio'],
+input[type='checkbox'] {
+  accent-color: var(--accent);
+}
+h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  margin: 1rem 0;
+  letter-spacing: -0.04em;
+}
+h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0 0 1rem;
+}
+h3 {
+  font-weight: 700;
+  margin: 0.75rem 0;
+}
+p {
+  line-height: 1.65;
+}
+label {
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0.75rem 0;
+}
+section,
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  padding: 1.4rem;
+}
+main {
+  max-width: 1280px;
+  margin: auto;
+  padding: 1.5rem;
+}
+.row {
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+.stack {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.grid > *,
+.stack > * {
+  min-width: 0;
+}
+.muted,
+small {
+  color: var(--muted);
+}
+.error {
+  background: var(--danger);
+  padding: 1rem;
+  border-radius: 8px;
+}
+.badge {
+  color: var(--accent);
+  font-size: 0.8rem;
+  letter-spacing: 0.13em;
+  font-weight: 750;
+}
+nav {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+a {
+  color: var(--accent);
+}
+.app-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.2rem 1.5rem;
+  max-width: 1280px;
+  margin: auto;
+}
+.brand {
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-decoration: none;
+}
+.theme-toggle {
+  font-size: 0.85rem;
+}
+summary {
+  cursor: pointer;
+  font-weight: 650;
+}
+details {
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+.player-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  background: var(--surface);
+  border: 3px solid var(--player-color);
+  border-radius: 50%;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+.player-entry {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.player-entry:last-child {
+  border: 0;
+}
+.player-entry p {
+  margin: 0;
+}
+.rulebook {
+  max-width: 900px;
+}
+.rulebook ol,
+.rulebook ul {
+  padding-left: 1.5rem;
+  list-style: revert;
+  line-height: 1.8;
+}
+.rulebook table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+.rulebook td,
+.rulebook th {
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  padding: 0.8rem 0.5rem;
+  vertical-align: top;
+}
+.rulebook .table-scroll {
+  overflow: auto;
+}
+.rulebook section {
+  margin-bottom: 1rem;
+}
+.rulebook dt {
+  font-weight: 750;
+  margin-top: 0.8rem;
+}
+.rulebook dd {
+  line-height: 1.75;
+  margin: 0.2rem 0 1rem;
+}
+@media (max-width: 600px) {
+  main {
+    padding: 1rem;
+  }
+  section,
+  .panel {
+    padding: 1rem;
+  }
+  .app-topbar {
+    padding: 1rem;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  label {
+    flex-wrap: wrap;
+  }
+}
