@@ -1,0 +1,127 @@
+Technologies:
+    ☐ SvelteKit
+    ☐ TailwindCSS
+    ☐ TypeScript
+    ☐ Vite (dev only)
+MainPage (/):
+    Game Page (connection):
+        Host button:
+            ☐ Create game lobby
+            ☐ Set game options (see Host->Settings)
+            ☐ Gives the join number
+            ☐ Button to start once everybody has joined
+        Join button:
+            ☐ Enter join number
+            ☐ Join game lobby (cannot join after game has started)
+            ☐ Error message if join number is invalid (game lobby does not exist or deleted)
+            ☐ Error message if game has already started
+            ☐ Error message if join number is missing
+    Rules Page:
+        Description of notations used in the game:
+            ☐ Each cell as a number starting at 1, not representing its position on the map
+            ☐ <x>d<y> represents the sum of a dice roll with x dice of y sides each
+            ☐ <+> represents the good wheel
+            ☐ <-> represents the bad wheel
+            ☐ <?> represents a random cell, it can be any cell on the map including jail, it is entered as a dice roll (on default it's 1d20), it can be either public (everyone can see it) or private (only the host can see it) depending on the context
+        Rules of the game:
+            ☐ The game is player on a tile map, tile don't have to be aligned in any specific way
+            ☐ Each player starts at a random tile (<?> private) on the map, only the host knows
+            ☐ Connection between tiles can be diagonal, orthogonal, curved, as well as looping on itself
+            ☐ Connection between tiles can be one way or two way
+            ☐ Connection between tiles can get out a side of the map and re-enter from another side or the same side
+            Type of tiles:
+                ☐ Property tile: Can be owned by players, falling on it triggers rent payment if owned by another player or allows the player to purchase it if unowned (no effect if the player cannot afford it), when landing on it: everyone knows by who it is own, if that person has a monopoly for that group and if there's any house on that property tile
+                ☐ Jail tile: More likely to have looped connections leading to and from it, always has at least 1 connection to another tile
+                ☐ Go tile: Grants players a reward when landed on
+                ☐ Shop tile: Allows players to buy items that can be used during the game
+                ☐ Good Wheel tile: Triggers a roll of the good wheel when landed on
+                ☐ Bad Wheel tile: Triggers a roll of the bad wheel when landed on
+                ☐ Neutral tile: Has no special effect when landed on
+            ☐ Turn order is determined at the start of the game and proceeds clockwise
+            Player Turn:
+                ☐ If in jail, roll <-> and apply it's effects
+                ☐ Possible use of items (if it moves a player, DO NOT apply the cell effects)
+                ☐ Movement of 1 cell
+                ☐ Action based on the cell landed on (e.g., pay rent, draw a card, etc.) unless it is jail and the player started their turn in jail
+                ☐ Possible use of items (if it moves a player, DO apply the cell effects)
+                ☐ End of turn
+            ☐ Rolling a wheel (good or bad) determines certain game effects based on the outcome
+            Shop:
+                ☐ Players can buy items using in-game currency
+                ☐ Each item has a cost and specific effect
+                ☐ Cost grows as people purchase the same item
+                Shop items (when used they are lost even if they don't have any effect):
+                    ☐ Teleportation item: Choose a player (yourself or another), they move to a random tile <?> (the number pulled is public)
+                    ☐ Send to jail item: Choose a another player, 50% chance to send them to jail, 5% chance to send yourself to jail
+                    ☐ Steal property item: While on a property owned by another player, 25% chance to steal it (if any house is on the group, they all get sent to their owner's inventory, if not enough place they are lost)
+                    ☐ Move Go space item: All the Go cells are moved to a random tile (<?> private, only host knows the new locations) on the map (if the new tile isn't a neutral tile, the tiles effects are switched (the players don't move))
+                    ☐ Yes or No question item: Ask the host a yes or no question about the game (host must answer truthfully: "yes", "no", "I don't know" or "Invalid" (in case it's not about the game or it's not a yes or no question))
+                    ☐ Reveal cell item: The cell you are on and the cells you can move to are revealed to everyone for 30 seconds (each player has a button to start the 30 seconds on their end individually, the game halts until everyone finished the timer)
+                    ☐ Steal Money item: Choose a cell (yours or one you can move to) and steal 5% of the money from each of the players on that cell (if any)
+                    ☐ House: When on your own property and you have a monopoly (all properties of the same color group), you can build a house on it if you have it in your inventory (no limit of houses).
+        Wheels Description:
+            ☐ Each wheel has specific outcomes that correspond to the number of 1d8
+            Bad Wheel (<->):
+                ☐ 1: +2 roll of the bad wheel (apply effects of the first reroll before the second reroll)
+                ☐ 2: Lose a random property (if the player owns any, otherwise no effect)
+                ☐ 3: Go to jail (roll the bad wheel if you aren't already in jail)
+                4: The map changes randomly (possible outcomes):
+                    ☐ 1 non-property and non-jail tile changes effects
+                    ☐ 2 non-property tiles exchange (effects and players included)
+                    ☐ 1 connection between tiles changes (e.g., a path is added, moved (removed and another of the same type (wrap/no wrap and diagonal/orthogonal/curved/loop) gets added) or removed)
+                ☐ 5: Go to a random cell <?> (the number is pulled is public)
+                ☐ 6: Drop 100 on a random cell <?> (the number is pulled is private)
+                ☐ 7: Nothing happens
+                ☐ 8: +1 roll of the good wheel
+            Good Wheel (<+>):
+                ☐ 1: +1 roll of the bad wheel
+                ☐ 2: Nothing happens
+                ☐ 3: Choose someone (you can't choose yourself) to go in jail and roll the bad wheel
+                ☐ 4: Ask the host a yes or no question about the game (host must answer truthfully: "yes", "no", "I don't know" or "Invalid" (in case it's not about the game or it's not a yes or no question))
+                ☐ 5: The cell you are on and the cells you can move to are revealed to everyone for 30 seconds (each player has a button to start the 30 seconds on their end individually, the game halts until everyone finished the timer)
+                ☐ 6: Go to the Go cell and get 200 (if there is a Go cell on the map, if there isn't, nothing happens, if there's more than one, go to a random one (only host knows which one))
+                ☐ 7: Steal 100 from a choosen player
+                ☐ 8: Get 200 from the bank
+
+    Settings Page:
+        ☐ Language
+Host (while in game):
+    Settings:
+        Not changeable after game has started:
+            ☐ Amount of tiles (must be between 5x and 10x the amount of players in the lobby for the launch button to be available) Default: 20
+            ☐ Starting costs of shops (Fixed per item or randomized per item from a range) Default: 2d10
+            ☐ Initial player money Default: 1500
+            ☐ Collect Go amount Default: 200
+            ☐ Number of property groups Default: 4
+            ☐ Number of properties per group (Fixed per item or randomized per item from a range, minimum 2 per group) Default: 2 + 1d2
+            ☐ Max amount of item in inventory Default: 3
+            ☐ Max cell connections (Fixed or expression, T = amount of tiles) Default: 1.5 * T
+            Cell connection repartition (percentage and/or the expected distribution of connections (expression, C = amount of connections, T = amount of tiles)):
+                ☐ Orthogonal Default: Percentage 40% | Expected C * 0.4
+                ☐ Diagonal Default: Percentage 30% | Expected C * 0.3
+                ☐ Curved Default: Percentage 0% | Expected 0
+                ☐ Loop Default: Percentage 15% | Expected C * 0.15
+                ☐ Warp Default: Percentage 15% | Expected C * 0.15
+        Changeable after game has started:
+            Input random value (dice roll) Default: Automatic:
+                ☐ Manual (anyone can manually enter dice results, a button is present to generate the result)
+                ☐ Host (only the host can enter dice results, a button is present to generate the result)
+                ☐ Automatic (dice results are generated automatically)
+            ☐ Rising costs of shops (Fixed per item or randomized per item from a range) Default: 1d6
+            ☐ Allow players to download game record/replay after the game has ended
+            ☐ Property cost (Fixed per group or randomized per group from a range) Default: 100
+            ☐ Initial rent cost (Fixed per group or randomized per group from a range) Default: 50
+            ☐ Growing rent cost expression (S = <initial rent>, H = <number of houses>) Default: S * 2 ^ H
+            ☐ End Game Now Button (immediately ends the game for all players, multiple "Are you sure?" confirmations)
+    ☐ Real game board
+    ☐ Dice input for rolling dice during the game
+    ☐ Shop (shows all available items and their costs)
+    ☐ Player list (shows all players currently in the game and their money and items)
+    ☐ If disconnected, deletes game lobby after 5 minutes
+    ☐ Download game record/replay after the game has ended
+Player (while in game):
+    ☐ Shop (shows all available items and their costs)
+    ☐ Dice input for rolling dice during the game
+    ☐ Player list (shows all players currently in the game and their money and items)
+    ☐ Canva with edition tools to make their own game board
+    ☐ If disconnected, allow the same device to rejoin within 5 minutes even a started game
